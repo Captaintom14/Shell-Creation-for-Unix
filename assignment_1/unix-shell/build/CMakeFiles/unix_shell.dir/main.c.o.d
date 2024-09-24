@@ -1,5 +1,5 @@
 CMakeFiles/unix_shell.dir/main.c.o: \
-  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/main.c \
+  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/Assignment_1_346/assignment_1/unix-shell/main.c \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/stdio.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/_stdio.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/sys/cdefs.h \
@@ -86,8 +86,8 @@ CMakeFiles/unix_shell.dir/main.c.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/arm/limits.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/arm/_limits.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/sys/syslimits.h \
-  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/parser.h \
-  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/utils.h \
+  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/Assignment_1_346/assignment_1/unix-shell/parser.h \
+  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/Assignment_1_346/assignment_1/unix-shell/utils.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.0/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.0/include/__stddef_max_align_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/unistd.h \

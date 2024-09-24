@@ -20,7 +20,7 @@ struct backgroundJobs{
     pid_t pid; //checks the process id
     int status; // checks the status of the process
     char *command; // checks the command inside of the []
-}
+};
 
 struct backgroundJobs bgJobs[1000]; //array of background jobs
 int jobCount = 0; //counter for the number of jobs
@@ -33,7 +33,7 @@ void checkJobs(){
            pid_t stat = waitpid(bgJobs[i].pid, &status, WNOHANG);
 
               if (stat == 0){
-                printf("[%d] Running %s\n",i+1, bgJobs[i].pid, bgJobs[i].command);
+                printf("[%d] Running %s\n",i + 1, bgJobs[i].pid, bgJobs[i].command);
               }
 
               else if (stat == -1){
@@ -41,7 +41,7 @@ void checkJobs(){
                }
 
               else{
-                printf("[%d] Done %s\n", i+1, bgJobs[i].pid, bgJobs[i].command);
+                printf("[%d] Done %s\n", i + 1,bgJobs[i].pid, bgJobs[i].command);
                 bgJobs[i].status = 1; // the job is finished
               }
         }
@@ -136,19 +136,22 @@ int main(void) {
 
              if (l->bg == 1){  // checks the background of the process
                 pid_t pid = fork();
+
                 if (pid == -1){
                     perror("fork"); // error handling
                     exit(1);
                 }
-                if (pid == 0){
+                else if (pid == 0){
                     execvp(cmd[0], cmd);
                     perror("execvp");
                     exit(1);
-                }
+                } else{
                 bgJobs[jobCount].pid = pid;
                 bgJobs[jobCount].status = 0; // An indication that the job is running
                 bgJobs[jobCount].command = cmd[0];
                 jobCount++;
+                }
+               
              } else {  // checks the foreground of the process
 
             pid_t pid = fork();

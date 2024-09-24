@@ -7,7 +7,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/CMakeLists.txt"
+  "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/Assignment_1_346/assignment_1/unix-shell/CMakeLists.txt"
   "CMakeFiles/3.28.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeSystem.cmake"
   "/Users/thomasmejia/Downloads/cmake-3.28.1/Modules/CMakeCCompiler.cmake.in"
