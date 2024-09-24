@@ -1,7 +1,7 @@
 CMakeFiles/unix_shell.dir/parser.c.o: \
-  /Users/thomasmejia/Desktop/assignment_1/unix-shell/parser.c \
-  /Users/thomasmejia/Desktop/assignment_1/unix-shell/parser.h \
-  /Users/thomasmejia/Desktop/assignment_1/unix-shell/utils.h \
+  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/parser.c \
+  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/parser.h \
+  /Users/thomasmejia/Documents/GITHUB\ DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/utils.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.0/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/14.0.0/include/__stddef_max_align_t.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/stdio.h \

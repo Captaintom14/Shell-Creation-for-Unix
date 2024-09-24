@@ -57,10 +57,10 @@ RM = /Users/thomasmejia/Downloads/cmake-3.28.1/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/thomasmejia/Desktop/assignment_1/unix-shell
+CMAKE_SOURCE_DIR = "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/thomasmejia/Desktop/assignment_1/unix-shell/build
+CMAKE_BINARY_DIR = "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thomasmejia/Desktop/assignment_1/unix-shell/build/CMakeFiles /Users/thomasmejia/Desktop/assignment_1/unix-shell/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/build/CMakeFiles" "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thomasmejia/Desktop/assignment_1/unix-shell/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target

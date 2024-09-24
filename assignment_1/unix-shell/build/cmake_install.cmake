@@ -1,4 +1,4 @@
-# Install script for directory: /Users/thomasmejia/Desktop/assignment_1/unix-shell
+# Install script for directory: /Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/thomasmejia/Desktop/assignment_1/unix-shell/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/thomasmejia/Desktop/assignment_1/unix-shell/main.c" "CMakeFiles/unix_shell.dir/main.c.o" "gcc" "CMakeFiles/unix_shell.dir/main.c.o.d"
-  "/Users/thomasmejia/Desktop/assignment_1/unix-shell/parser.c" "CMakeFiles/unix_shell.dir/parser.c.o" "gcc" "CMakeFiles/unix_shell.dir/parser.c.o.d"
-  "/Users/thomasmejia/Desktop/assignment_1/unix-shell/utils.c" "CMakeFiles/unix_shell.dir/utils.c.o" "gcc" "CMakeFiles/unix_shell.dir/utils.c.o.d"
+  "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/main.c" "CMakeFiles/unix_shell.dir/main.c.o" "gcc" "CMakeFiles/unix_shell.dir/main.c.o.d"
+  "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/parser.c" "CMakeFiles/unix_shell.dir/parser.c.o" "gcc" "CMakeFiles/unix_shell.dir/parser.c.o.d"
+  "/Users/thomasmejia/Documents/GITHUB DOCUMENTS/NSGS-app/Assignment_1_346/assignment_1/unix-shell/utils.c" "CMakeFiles/unix_shell.dir/utils.c.o" "gcc" "CMakeFiles/unix_shell.dir/utils.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
