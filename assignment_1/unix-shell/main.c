@@ -15,6 +15,41 @@ void terminate(char *line) {
     exit(0);
 }
 
+// QUESTION 2
+struct backgroundJobs{
+    pid_t pid; //checks the process id
+    int status; // checks the status of the process
+    char *command; // checks the command inside of the []
+}
+
+struct backgroundJobs bgJobs[100]; //array of background jobs
+int jobCount = 0; //counter for the number of jobs
+
+void checkJobs(){
+    for(int i = 0; i < jobCount; i++){
+        if (bgJobs[i].status == 0){ // checks if the 
+           
+           int status = 0;
+           pid_t stat = waitpid(bgJobs[i].pid, &status, WNOHANG);
+
+              if (stat == 0){
+                printf("[%d] %s\n", bgJobs[i].pid, bgJobs[i].command);
+              }
+              else{
+                bgJobs[i].status = 1;
+              }
+
+
+
+        }
+
+
+
+    }
+
+}
+
+// END QUESTION 2
 
 /* Read a line from standard input and put it in a char[] */
 char* readline(const char *prompt)
@@ -27,7 +62,6 @@ char* readline(const char *prompt)
         free(buf);
         return NULL;
     }
-
     do {
         size_t l = strlen(buf);
         if ((l > 0) && (buf[l-1] == '\n')) {
@@ -106,6 +140,8 @@ int main(void) {
             wait(&status);
         }
 
+
+        //Checking the background of jobs
 
 
     }
