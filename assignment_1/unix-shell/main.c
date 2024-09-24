@@ -22,34 +22,36 @@ struct backgroundJobs{
     char *command; // checks the command inside of the []
 }
 
-struct backgroundJobs bgJobs[100]; //array of background jobs
+struct backgroundJobs bgJobs[1000]; //array of background jobs
 int jobCount = 0; //counter for the number of jobs
 
 void checkJobs(){
     for(int i = 0; i < jobCount; i++){
-        if (bgJobs[i].status == 0){ // checks if the 
+        if (bgJobs[i].status == 0){ // checks if the job is running
            
            int status = 0;
            pid_t stat = waitpid(bgJobs[i].pid, &status, WNOHANG);
 
               if (stat == 0){
-                printf("[%d] %s\n", bgJobs[i].pid, bgJobs[i].command);
+                printf("[%d] Running %s\n",i+1, bgJobs[i].pid, bgJobs[i].command);
               }
+
+              else if (stat == -1){
+                perror("waitpid"); // there's an error while waiting for the process
+               }
+
               else{
-                bgJobs[i].status = 1;
+                printf("[%d] Done %s\n", i+1, bgJobs[i].pid, bgJobs[i].command);
+                bgJobs[i].status = 1; // the job is finished
               }
-
-
-
         }
-
-
-
+    
     }
 
 }
-
 // END QUESTION 2
+
+
 
 /* Read a line from standard input and put it in a char[] */
 char* readline(const char *prompt)
@@ -126,6 +128,29 @@ int main(void) {
         //new code fork() and execvp()
         for (int i = 0; l->seq[i] != 0; i++) {
             char **cmd = l->seq[i];
+
+             if (strcmp(cmd[0], "jobs") == 0){
+                checkJobs();
+                continue; //continue to the next iteration of the loop
+             }
+
+             if (l->bg == 1){  // checks the background of the process
+                pid_t pid = fork();
+                if (pid == -1){
+                    perror("fork"); // error handling
+                    exit(1);
+                }
+                if (pid == 0){
+                    execvp(cmd[0], cmd);
+                    perror("execvp");
+                    exit(1);
+                }
+                bgJobs[jobCount].pid = pid;
+                bgJobs[jobCount].status = 0; // An indication that the job is running
+                bgJobs[jobCount].command = cmd[0];
+                jobCount++;
+             } else {  // checks the foreground of the process
+
             pid_t pid = fork();
             if (pid == -1) {
                 perror("fork");
@@ -136,13 +161,9 @@ int main(void) {
                 perror("execvp");
                 exit(1);
             }
+             }
             int status;
             wait(&status);
         }
-
-
-        //Checking the background of jobs
-
-
     }
 }
