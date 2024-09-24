@@ -1,0 +1,3 @@
+/Users/thomasmejia/Desktop/assignment_1/unix-shell/build/CMakeFiles/unix_shell.dir
+/Users/thomasmejia/Desktop/assignment_1/unix-shell/build/CMakeFiles/edit_cache.dir
+/Users/thomasmejia/Desktop/assignment_1/unix-shell/build/CMakeFiles/rebuild_cache.dir
