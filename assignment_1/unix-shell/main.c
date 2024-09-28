@@ -6,7 +6,7 @@
 #include "utils.h"
 #include <unistd.h>
 #include <sys/types.h>
-
+#include <errno.h>
 
 void terminate(char *line) {
     if (line)
@@ -33,15 +33,15 @@ void checkJobs(){
            pid_t stat = waitpid(bgJobs[i].pid, &status, WNOHANG);
 
               if (stat == 0){
-                printf("[%d] Running %s\n",i + 1, bgJobs[i].pid, bgJobs[i].command);
+                printf("[%d] %d Running %s\n",i + 1, bgJobs[i].pid, bgJobs[i].command);
               }
 
-              else if (stat == -1){
+              else if (stat == -1 && errno != ECHILD){
                 perror("waitpid"); // there's an error while waiting for the process
                }
 
               else{
-                printf("[%d] Done %s\n", i + 1,bgJobs[i].pid, bgJobs[i].command);
+                printf("[%d] %d Done %s\n", i + 1,bgJobs[i].pid, bgJobs[i].command);
                 bgJobs[i].status = 1; // the job is finished
               }
         }
