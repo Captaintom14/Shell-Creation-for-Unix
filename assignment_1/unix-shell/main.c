@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <sys/wait.h>
+#include <fcntl.h>
 
 void terminate(char *line) {
     if (line)
@@ -15,7 +17,7 @@ void terminate(char *line) {
     exit(0);
 }
 
-// QUESTION 2
+// QUESTION 2 Jobs
 struct backgroundJobs{
     pid_t pid; //checks the process id
     int status; // checks the status of the process
@@ -50,6 +52,37 @@ void checkJobs(){
 
 }
 // END QUESTION 2
+
+//QUESTION 3 Input/Output Redirection
+void redirection(struct cmdline *l){
+    int fd;
+    if (l->in != 0){
+        fd = open(l->in, O_RDONLY);
+        if (fd == -1){
+            perror("Failed to open file");
+            exit(1);
+        }
+        if (dup2(fd, STDIN_FILENO) == -1){
+            perror("Failed to duplicate file descriptor");
+            exit(1);
+        }
+        close(fd);
+    }
+    if (l->out != 0){
+        fd = open(l->out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd == -1){
+            perror("Failed to open file");
+            exit(1);
+        }
+        if (dup2(fd, STDOUT_FILENO) == -1){
+            perror("Failed to duplicate file descriptor");
+            exit(1);
+        }
+        close(fd);
+    }
+}
+
+
 
 
 
@@ -136,12 +169,12 @@ int main(void) {
 
              if (l->bg == 1){  // checks the background of the process
                 pid_t pid = fork();
-
                 if (pid == -1){
                     perror("fork"); // error handling
                     exit(1);
                 }
                 else if (pid == 0){
+                    redirection(l);
                     execvp(cmd[0], cmd);
                     perror("execvp");
                     exit(1);
@@ -160,6 +193,7 @@ int main(void) {
                 exit(1);
             }
             if (pid == 0) {
+                redirection(l);
                 execvp(cmd[0], cmd);
                 perror("execvp");
                 exit(1);
