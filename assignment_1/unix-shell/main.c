@@ -84,11 +84,9 @@ void redirection(struct cmdline *l){
 
 // END QUESTION 3
 
-
+/*
 // QUESTION 4 Simple Pipe Implementation
 //This function will be used to verify if the command has a pipe or not
-void pipesFunction (char **cmd1, char **cmd2);
-
 void verification (char *input){
     int i = 0;
     char *cmd1[1000];
@@ -102,19 +100,19 @@ void verification (char *input){
             cmd1[i] = NULL;
             i = 0;
             token = strtok(NULL, " \n");
-            continue;
         }
         if (pipeFound == 0){
             cmd1[i++] = token; // read the first command
-        } else if (pipeFound == 1) {
+        } else if (pipeFound == 1){ {
             cmd2[i++] = token; // read the second command
         }
+        i++;
         token = strtok(NULL, " \n");
     }
 
      if (pipeFound == 0){
         cmd2[i] = NULL; // execute the second command which has the pipe
-        pipesFunction(cmd1, cmd2);
+        pipes(cmd1, cmd2);
      } else {
         cmd1[i] = NULL; // execute the first command which doesn't have the pipe
         pid_t pid = fork();
@@ -128,10 +126,10 @@ void verification (char *input){
      }
 
 }
-
+}
 
 //this function will be used to create a pipe if the command has a pipe
-void pipesFunction (char **cmd1, char **cmd2){
+void pipes (char **cmd1, char **cmd2){
 
 int pipefd[2];
 pid_t pid1, pid2;
@@ -148,8 +146,8 @@ if (pipe(pipefd) == -1){
     exit(1);
  } else if (pid1 == 0){
     // Child process
-    dup2(pipefd[1], STDOUT_FILENO); // duplicates the write end of the pipe
     close(pipefd[0]); // closes the read end of the pipe
+    dup2(pipefd[1], STDOUT_FILENO); // duplicates the write end of the pipe
     close(pipefd[1]); // closes the write end of the pipe
 
     // Execute the first command
@@ -165,25 +163,18 @@ if (pid2 == -1){
     exit(1);
 } else if (pid2 == 0){
     // Child process
-   
-    dup2(pipefd[0], STDIN_FILENO); // duplicates the read end of the pipe 
     close(pipefd[0]); // closes the read end of the pipe
+    dup2(pipefd[0], STDIN_FILENO); // duplicates the read end of the pipe
     close(pipefd[1]); // closes the write end of the pipe
 
     // Execute the second command
     execvp(cmd2[0], cmd2);
     perror("execvp failed");
     exit(1);
+
 }
 
-close (pipefd[0]); // closes the read end of the pipe
-close (pipefd[1]); // closes the write end of the pipe
-
-
-// Wait for both child processes to finish
-waitpid(pid1, NULL, 0);
-waitpid(pid2, NULL, 0);
-}
+*/
 
 
 
@@ -221,13 +212,15 @@ int main(void) {
         char *prompt = "myshell>";
         char input [1000];
 
+       /*
         while (1){
-             printf("%s", prompt);
+
             if (fgets(input, sizeof(input), stdin) == NULL){
-                break;
+                terminate(0);
             }
             verification(input);
         }
+*/
 
         /* Readline use some internal memory structure that
            can not be cleaned at the end of the program. Thus
@@ -314,5 +307,4 @@ int main(void) {
             wait(&status);
         }
     }
-    return 0;
 }
