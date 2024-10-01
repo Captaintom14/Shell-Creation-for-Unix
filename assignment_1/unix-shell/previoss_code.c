@@ -1,5 +1,4 @@
-
-//MAIN
+//PREVIOUS CODE
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,7 +9,7 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <sys/wait.h>
-#include <fcntl.h>  
+#include <fcntl.h>
 
 void terminate(char *line) {
     if (line)
@@ -91,13 +90,13 @@ void redirection(struct cmdline *l){
 //This function will be used to verify if the command has a pipe or not
 void pipesFunction (char **cmd1, char **cmd2);
 
-void verification (char *input, struct cmdline *l){
+void verification (char *input){
     int i = 0;
     char *cmd1[1000];
     char *cmd2[1000];
     char *token = strtok(input, " \n");
     int pipeFound = 0;
-    int redirectionFound = 0;
+
     while (token != NULL){
         if (strcmp(token, "|") == 0){
             pipeFound = 1; // pipe is found in the command
@@ -105,47 +104,32 @@ void verification (char *input, struct cmdline *l){
             i = 0;
             token = strtok(NULL, " \n");
             continue;
-        } 
-        if (strcmp(token, ">") == 0){
-            redirectionFound = 1; // redirection is found in the command
-            cmd1[i] = NULL;
-            i = 0;
-            token = strtok(NULL, " \n");
-            continue;
-        } 
+        }
         if (pipeFound == 0){
             cmd1[i++] = token; // read the first command
-        } else if (pipeFound == 1){
+        } else if (pipeFound == 1) {
             cmd2[i++] = token; // read the second command
         }
         token = strtok(NULL, " \n");
     }
 
-     if (pipeFound == 1){
-        cmd1[i] = NULL; // execute the first command which 
+     if (pipeFound == 0){
         cmd2[i] = NULL; // execute the second command which has the pipe
         pipesFunction(cmd1, cmd2);
-     } else if (redirectionFound == 1){
-        cmd1[i] = NULL; // execute the first command which has the redirection
-        redirection(l);
-     }
-     
-     else {
+     } else {
         cmd1[i] = NULL; // execute the first command which doesn't have the pipe
         pid_t pid = fork();
-
         if (pid == 0){
-
             execvp(cmd1[0], cmd1);
-            perror("execvp first failed");
+            perror("execvp failed");
             exit(1);
-
         } else {
             wait(NULL);
         }
      }
 
 }
+
 
 //this function will be used to create a pipe if the command has a pipe
 void pipesFunction (char **cmd1, char **cmd2){
@@ -166,12 +150,12 @@ if (pipe(pipefd) == -1){
  } else if (pid1 == 0){
     // Child process
     dup2(pipefd[1], STDOUT_FILENO); // duplicates the write end of the pipe
-    close(pipefd[0]);
-   close(pipefd[1]); // closes the write end of the pipe
+    close(pipefd[0]); // closes the read end of the pipe
+    close(pipefd[1]); // closes the write end of the pipe
 
     // Execute the first command
     execvp(cmd1[0], cmd1);
-    perror("execvp second failed");
+    perror("execvp failed");
     exit(1);
 }
 
@@ -182,23 +166,26 @@ if (pid2 == -1){
     exit(1);
 } else if (pid2 == 0){
     // Child process
-   close(pipefd[1]); // closes the read end of the pipe 
-    dup2(pipefd[0], STDIN_FILENO); // duplicates the read end of the pipe
-    close(pipefd[0]); // closes the write end of the pipe
+   
+    dup2(pipefd[0], STDIN_FILENO); // duplicates the read end of the pipe 
+    close(pipefd[0]); // closes the read end of the pipe
+    close(pipefd[1]); // closes the write end of the pipe
 
     // Execute the second command
     execvp(cmd2[0], cmd2);
-    perror("execvp third failed");
+    perror("execvp failed");
     exit(1);
-
 }
 
 close (pipefd[0]); // closes the read end of the pipe
 close (pipefd[1]); // closes the write end of the pipe
 
+
+// Wait for both child processes to finish
 waitpid(pid1, NULL, 0);
 waitpid(pid2, NULL, 0);
 }
+
 
 
 
@@ -240,7 +227,7 @@ int main(void) {
             if (fgets(input, sizeof(input), stdin) == NULL){
                 break;
             }
-            verification(input, l);
+            verification(input);
         }
 
         /* Readline use some internal memory structure that
@@ -301,7 +288,7 @@ int main(void) {
                 else if (pid == 0){
                     redirection(l); // redirection function
                     execvp(cmd[0], cmd);
-                    perror("execvp fourth failed");
+                    perror("execvp");
                     exit(1);
                 } else{
                 bgJobs[jobCount].pid = pid;
@@ -320,7 +307,7 @@ int main(void) {
             if (pid == 0) {
                 redirection(l); // redirection function
                 execvp(cmd[0], cmd);
-                perror("execvp fifth failed");
+                perror("execvp");
                 exit(1);
             }
              }
@@ -329,4 +316,4 @@ int main(void) {
         }
     }
     return 0;
-    }
+}
