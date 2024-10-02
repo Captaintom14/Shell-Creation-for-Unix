@@ -61,7 +61,7 @@ void redirection(struct cmdline *l){
     if (l->in != 0){
         fd = open(l->in, O_RDONLY);
         if (fd == -1){
-            perror("Failed to open file");
+            perror("Failed to open 1 file");
             exit(1);
         }
         if (dup2(fd, STDIN_FILENO) == -1){
@@ -73,7 +73,7 @@ void redirection(struct cmdline *l){
     if (l->out != 0){
         fd = open(l->out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         if (fd == -1){
-            perror("Failed to open file");
+            perror("Failed to open 2 file");
             exit(1);
         }
         if (dup2(fd, STDOUT_FILENO) == -1){
@@ -96,8 +96,11 @@ void verification (char *input, struct cmdline *l){
     char *cmd1[1000];
     char *cmd2[1000];
     char *token = strtok(input, " \n");
+    char *outputFile = NULL;
+    char *inputFile = NULL;
     int pipeFound = 0;
-    int redirectionFound = 0;
+    int redirectionOut = 0;
+    int redirectionIn = 0;
     while (token != NULL){
         if (strcmp(token, "|") == 0){
             pipeFound = 1; // pipe is found in the command
@@ -107,17 +110,30 @@ void verification (char *input, struct cmdline *l){
             continue;
         } 
         if (strcmp(token, ">") == 0){
-            redirectionFound = 1; // redirection is found in the command
+            redirectionOut = 1; // redirection is found in the command
             cmd1[i] = NULL;
-            i = 0;
             token = strtok(NULL, " \n");
-            continue;
+            if (token != NULL){
+                outputFile = token;
+            }
+            break;
         } 
+
+        if (strcmp (token, "<") == 0){
+            redirectionIn = 1; // redirection is found in the command
+            cmd1[i] = NULL;
+            token = strtok(NULL, " \n");
+            if (token != NULL){
+                inputFile = token;
+            }
+            break;
+        }
+
         if (pipeFound == 0){
             cmd1[i++] = token; // read the first command
         } else if (pipeFound == 1){
             cmd2[i++] = token; // read the second command
-        }
+        } 
         token = strtok(NULL, " \n");
     }
 
@@ -125,17 +141,46 @@ void verification (char *input, struct cmdline *l){
         cmd1[i] = NULL; // execute the first command which 
         cmd2[i] = NULL; // execute the second command which has the pipe
         pipesFunction(cmd1, cmd2);
-     } else if (redirectionFound == 1){
-        cmd1[i] = NULL; // execute the first command which has the redirection
-        redirection(l);
-     }
-     
-     else {
-        cmd1[i] = NULL; // execute the first command which doesn't have the pipe
-        pid_t pid = fork();
+     } else {
 
+        cmd1[i] = NULL; // execute the first command which doesn't have the pipe
+
+        if (strcmp(cmd1[0],"exit") == 0){
+            printf("bye\n");
+            exit(0);
+        }
+
+        pid_t pid = fork();
         if (pid == 0){
 
+            if (redirectionOut == 1){
+                int fd = open(outputFile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+                if (fd == -1){
+                    perror("Failed to open output file");
+                    exit(1);
+                }
+                if (dup2(fd, STDOUT_FILENO) == -1){
+                    perror("dup2");
+                    exit(1);
+                }
+                close(fd);
+
+            if (redirectionIn == 1){
+                int fd = open(inputFile, O_RDONLY);
+                if (fd == -1){
+                    perror("Failed to open input file");
+                    exit(1);
+                }
+                if (dup2(fd, STDIN_FILENO) == -1){
+                    perror("dup2");
+                    exit(1);
+                }
+                close(fd);
+            }
+
+
+
+            }
             execvp(cmd1[0], cmd1);
             perror("execvp first failed");
             exit(1);
